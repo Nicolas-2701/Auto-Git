@@ -28,6 +28,8 @@ public class Auto_git extends JFrame {
         try (Scanner scanner = new Scanner(new File("config.txt"))) {
             pathS = scanner.nextLine();
             String[] temp = pathS.split("\\|");
+            if(temp[1].equals(" "))
+                temp[1] = "";
             pathS = temp[1];
         } catch (FileNotFoundException ex) {
             System.err.println("Arquivo não encontrado: " + ex.getMessage());
@@ -36,6 +38,8 @@ public class Auto_git extends JFrame {
         try (Scanner scanner = new Scanner(new File("config.txt"))) {
             repoUrlS = scanner.nextLine();
             String[] temp = repoUrlS.split("\\|");
+            if (temp[2].equals(" "))
+                temp[2] = "";
             repoUrlS = temp[2];
         } catch (FileNotFoundException ex) {
             System.err.println("Arquivo não encontrado: " + ex.getMessage());
@@ -44,6 +48,8 @@ public class Auto_git extends JFrame {
         try (Scanner scanner = new Scanner(new File("config.txt"))) {
             commitMsgS = scanner.nextLine();
             String[] temp = commitMsgS.split("\\|");
+            if (temp[3].equals(" "))
+                temp[3] = "";
             commitMsgS = temp[3];
         } catch (FileNotFoundException ex) {
             System.err.println("Arquivo não encontrado: " + ex.getMessage());
@@ -52,6 +58,8 @@ public class Auto_git extends JFrame {
         try (Scanner scanner = new Scanner(new File("config.txt"))) {
             branchS = scanner.nextLine();
             String[] temp = branchS.split("\\|");
+            if (temp[4].equals(" "))
+                temp[4] = "";
             branchS = temp[4];
         } catch (FileNotFoundException ex) {
             System.err.println("Arquivo não encontrado: " + ex.getMessage());
@@ -401,6 +409,8 @@ public class Auto_git extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 pathS = path.getText();
                 try (FileWriter writer = new FileWriter("Config.txt", false)) {
+                    if (pathS.equals(""))
+                        pathS = " ";
                     writer.write("0|" + pathS + "|" + repoUrlS + "|" + commitMsgS + "|" + branchS + "|");
                 } catch (IOException ex) { // <- Mudado de FileNotFoundException para IOException
                     System.err.println("Erro ao escrever no arquivo: " + ex.getMessage());
@@ -412,6 +422,8 @@ public class Auto_git extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 repoUrlS = repoUrl.getText();
                 try (FileWriter writer = new FileWriter("Config.txt", false)) {
+                    if (repoUrlS.equals(""))
+                        repoUrlS = " ";
                     writer.write("0|" + pathS + "|" + repoUrlS + "|" + commitMsgS + "|" + branchS + "|");
                 } catch (IOException ex) { // <- Mudado de FileNotFoundException para IOException
                     System.err.println("Erro ao escrever no arquivo: " + ex.getMessage());
@@ -423,6 +435,8 @@ public class Auto_git extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 commitMsgS = commitMsg.getText();
                 try (FileWriter writer = new FileWriter("Config.txt", false)) {
+                    if (commitMsgS.equals(""))
+                        commitMsgS = " ";
                     writer.write("0|" + pathS + "|" + repoUrlS + "|" + commitMsgS + "|" + branchS + "|");
                 } catch (IOException ex) { // <- Mudado de FileNotFoundException para IOException
                     System.err.println("Erro ao escrever no arquivo: " + ex.getMessage());
@@ -432,8 +446,10 @@ public class Auto_git extends JFrame {
         applyBranch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                branchS = commitMsg.getText();
+                branchS = branch.getText();
                 try (FileWriter writer = new FileWriter("Config.txt", false)) {
+                    if(branchS.equals(""))
+                    branchS = " ";
                     writer.write("0|" + pathS + "|" + repoUrlS + "|" + commitMsgS + "|" + branchS + "|");
                 } catch (IOException ex) { // <- Mudado de FileNotFoundException para IOException
                     System.err.println("Erro ao escrever no arquivo: " + ex.getMessage());
