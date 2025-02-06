@@ -13,6 +13,7 @@ public class Auto_git extends JFrame {
     private String executador = "";
     private String pathS = "";
     private String repoUrlS = "";
+    private String commitMsgS = "";
 
     public Auto_git() {
         // variaveis
@@ -35,6 +36,14 @@ public class Auto_git extends JFrame {
             repoUrlS = scanner.nextLine();
             String[] temp = repoUrlS.split("\\|");
             repoUrlS = temp[2];
+        } catch (FileNotFoundException ex) {
+            System.err.println("Arquivo não encontrado: " + ex.getMessage());
+        }
+        // commitMsgS
+        try (Scanner scanner = new Scanner(new File("config.txt"))) {
+            commitMsgS = scanner.nextLine();
+            String[] temp = commitMsgS.split("\\|");
+            commitMsgS = temp[3];
         } catch (FileNotFoundException ex) {
             System.err.println("Arquivo não encontrado: " + ex.getMessage());
         }
@@ -124,6 +133,7 @@ public class Auto_git extends JFrame {
         config.setLayout(new BoxLayout(config, BoxLayout.Y_AXIS));
         JPanel configPath = new JPanel(new BorderLayout());
         JPanel configRepoUrl = new JPanel(new BorderLayout());
+        JPanel configCommitMsg = new JPanel(new BorderLayout());
 
         // Add as sub telas
         // -Panel(principal)
@@ -142,6 +152,7 @@ public class Auto_git extends JFrame {
         JButton configButton = new JButton("Config");
         JButton applyPath = new JButton("Apply");
         JButton applyRepoUrl = new JButton("Apply");
+        JButton applyCommitMsg = new JButton("Apply");
         // add Botões
         // -Menu
         menu.add(homeButton);
@@ -155,12 +166,20 @@ public class Auto_git extends JFrame {
         path.setOpaque(false);
         configPath.add(path);
         configPath.add(applyPath, BorderLayout.EAST);
+        configPath.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         config.add(configPath);
         JTextArea repoUrl = new JTextArea(repoUrlS);
         repoUrl.setOpaque(false);
         configRepoUrl.add(repoUrl);
         configRepoUrl.add(applyRepoUrl, BorderLayout.EAST);
+        configRepoUrl.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         config.add(configRepoUrl);
+        JTextArea commitMsg = new JTextArea(commitMsgS);
+        commitMsg.setOpaque(false);
+        configCommitMsg.add(commitMsg);
+        configCommitMsg.add(applyCommitMsg, BorderLayout.EAST);
+        configCommitMsg.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        config.add(configCommitMsg);
 
         // Button functions
         homeButton.addActionListener(new ActionListener() {
@@ -186,6 +205,10 @@ public class Auto_git extends JFrame {
                             public void actionPerformed(ActionEvent e) {
                                 if(arrayTemp[1]. contains("<url-do-repositório>")){
                                     arrayTemp[1] = arrayTemp[1].replace("<url-do-repositório>", repoUrlS);
+                                    System.out.println("teste");
+                                }
+                                else if (arrayTemp[1].contains("<commit-message>")) {
+                                    arrayTemp[1] = arrayTemp[1].replace("<commit-message>", commitMsgS);
                                     System.out.println("teste");
                                 }
                                 try {
@@ -354,7 +377,7 @@ public class Auto_git extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 pathS = path.getText();
                 try (FileWriter writer = new FileWriter("Config.txt", false)) {
-                    writer.write("0|" + pathS + "|" + repoUrlS + "|");
+                    writer.write("0|" + pathS + "|" + repoUrlS + "|" + commitMsgS + "|");
                 } catch (IOException ex) { // <- Mudado de FileNotFoundException para IOException
                     System.err.println("Erro ao escrever no arquivo: " + ex.getMessage());
                 }
@@ -381,7 +404,18 @@ public class Auto_git extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 repoUrlS = repoUrl.getText();
                 try (FileWriter writer = new FileWriter("Config.txt", false)) {
-                    writer.write("0|" + pathS + "|" + repoUrlS + "|");
+                    writer.write("0|" + pathS + "|" + repoUrlS + "|" + commitMsgS + "|");
+                } catch (IOException ex) { // <- Mudado de FileNotFoundException para IOException
+                    System.err.println("Erro ao escrever no arquivo: " + ex.getMessage());
+                }
+            }
+        });
+        applyCommitMsg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                commitMsgS = commitMsg.getText();
+                try (FileWriter writer = new FileWriter("Config.txt", false)) {
+                    writer.write("0|" + pathS + "|" + repoUrlS + "|" + commitMsgS + "|");
                 } catch (IOException ex) { // <- Mudado de FileNotFoundException para IOException
                     System.err.println("Erro ao escrever no arquivo: " + ex.getMessage());
                 }
