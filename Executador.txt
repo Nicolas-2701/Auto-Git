@@ -1,0 +1,1 @@
+-----|status;git status|pull;git pull|push;git push|init;git init|add;git add .|commit;git commit -m "commit auto"|clone;git clone <url-do-repositório>|
