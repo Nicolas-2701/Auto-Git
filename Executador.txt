@@ -1,1 +1,1 @@
------|status;git status|pull;git pull|push;git push|init;git init|add;git add .|clone;git clone <url-do-repositório>|commit;git commit -m "<commit message>"|
+-----|status;git status|pull;git pull|push;git push|init;git init|add;git add .|clone;git clone <url-do-repositório>|commit;git commit -m "<commit-message>"|
