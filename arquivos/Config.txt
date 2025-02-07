@@ -1,1 +1,1 @@
-0|C:\Users\User\Desktop\Projects\Auto-Git|https://github.com/Nicolas-2701/Auto-Git.git|fix - bug configEmpty|main|
+0|C:\Users\User\Desktop\Projects\Auto-Git|https://github.com/Nicolas-2701/Auto-Git.git|fix - bug shortcut|main|

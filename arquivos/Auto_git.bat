@@ -1,5 +1,5 @@
 @echo off
-cd /d "%~dp0arquivos"
+cd /d "%~dp0"
 echo Compilando o programa...
 javac Auto_git.java
 if %errorlevel% neq 0 (
